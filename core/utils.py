@@ -3,7 +3,7 @@ import datetime
 import requests
 from fastapi import HTTPException
 from config import CONSUMER_KEY, CONSUMER_SECRET, AUTH_URL, SHORTCODE, PASSKEY
-from logger_config import logger
+from logger import logger
 
 
 def get_access_token() -> str:

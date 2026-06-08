@@ -3,7 +3,7 @@ from models import PaymentRequest, CallbackData
 from utils import get_access_token, generate_password
 from config import SHORTCODE, CALLBACK_URL, STK_PUSH_URL
 import requests
-from logger_config import logger
+from logger import logger
 
 app = FastAPI(title="M-Pesa FastAPI Integration")
 
