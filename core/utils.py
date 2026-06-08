@@ -3,25 +3,21 @@ import datetime
 import requests
 from fastapi import HTTPException
 from config import CONSUMER_KEY, CONSUMER_SECRET, AUTH_URL, SHORTCODE, PASSKEY
-import logging
+from logger_config import logger
 
-# Configure logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 
 def get_access_token() -> str:
     """Generate an OAuth access token from M-Pesa."""
     try:
         auth = base64.b64encode(f"{CONSUMER_KEY}:{CONSUMER_SECRET}".encode()).decode()
-        headers = {
-            "Authorization": f"Basic {auth}",
-            "Content-Type": "application/json"
-        }
+        headers = {"Authorization": f"Basic {auth}", "Content-Type": "application/json"}
         logger.info("Requesting M-Pesa access token")
         response = requests.get(AUTH_URL, headers=headers, timeout=30)
 
         if response.status_code != 200:
-            error_detail = response.json().get("errorMessage", "Failed to get access token")
+            error_detail = response.json().get(
+                "errorMessage", "Failed to get access token"
+            )
             logger.error("Failed to get access token: %s", error_detail)
             raise HTTPException(status_code=500, detail=error_detail)
 
@@ -36,7 +32,10 @@ def get_access_token() -> str:
 
     except requests.exceptions.RequestException as e:
         logger.error("Failed to retrieve access token: %s", str(e), exc_info=True)
-        raise HTTPException(status_code=502, detail="Failed to connect to M-Pesa API") from e
+        raise HTTPException(
+            status_code=502, detail="Failed to connect to M-Pesa API"
+        ) from e
+
 
 def generate_password() -> tuple[str, str]:
     """Generate the password and timestamp for STK Push."""

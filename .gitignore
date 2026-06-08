@@ -358,3 +358,6 @@ target/
 #   pdm stores project-wide configurations in .pdm.toml, but it is recommended to not include it
 #   in version control.
 #   https
+
+# Ignore logs.txt
+logs.txt

@@ -1,9 +1,4 @@
 {
-    "cSpell.words": [
-        "dotenv",
-        "imsmonster",
-        "qajdt",
-        "roboflow",
-        "yolov"
-    ]
+    "python.terminal.useEnvFile": true,
+    "biome.enabled": false
 }
